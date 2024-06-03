@@ -83,7 +83,7 @@ export const useCurrentUser = () => {
         }
         return response.json()
     }
-    const { data: currentUser, isSuccess, error, isLoading } = useQuery("fetchCurrentUser", getCurrentUserRequest)
+    const { data: currentUser, error, isLoading } = useQuery("fetchCurrentUser", getCurrentUserRequest)
     if(error){
         toast.error(error.toString())
     }
