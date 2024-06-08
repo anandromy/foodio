@@ -50,8 +50,8 @@ export const useGetMyRestaurant = () => {
         return res.json()
     }
 
-    const { data: restaurant, isLoading } = useQuery("fetchMyRestaurantRequest", getMyRestaurantRequest)
-    return { restaurant, isLoading }
+    const { data: restaurant } = useQuery("fetchMyRestaurantRequest", getMyRestaurantRequest)
+    return { restaurant }
 }
 
 export const useUpdateMyRestaurant = () => {

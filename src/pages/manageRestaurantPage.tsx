@@ -3,7 +3,7 @@ import { ManageRestaurantForm } from "../forms/manage-restaurant-form/manageRest
 
 export const ManageRestaurantPage = () => {
     const { isLoading: createLoading, createRestaurant } = useCreateMyRestaurant();
-    const { isLoading: getLoading, restaurant} = useGetMyRestaurant()
+    const { restaurant} = useGetMyRestaurant()
     const { isLoading: updateLoading, updateRestaurant } = useUpdateMyRestaurant()
 
     //truthy value of restaurant, i.e if there is restaurant !!restaurant is true else if restaurant is undefined or null, then !!restaurant is false
