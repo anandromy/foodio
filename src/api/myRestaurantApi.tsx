@@ -38,7 +38,7 @@ export const useGetMyRestaurant = () => {
     const { getAccessTokenSilently } = useAuth0()
     const getMyRestaurantRequest = async (): Promise<Restaurant> => {
         const token = await getAccessTokenSilently()
-        const res = await fetch(`${api_base_url}/api/me/restaurant`, {
+        const res = await fetch(`${api_base_url}/api/my/restaurant`, {
             method: "GET",
             headers: {
                 "Authorization": `Bearer ${token}`
