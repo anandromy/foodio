@@ -96,8 +96,8 @@ export const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
                 <ImageSection />
                 {
                     isLoading ? (
-                        <Button className="animate-spin">
-                            <LoaderIcon />
+                        <Button>
+                            <LoaderIcon className="animate-spin" />
                         </Button>
                     ):(
                         <Button type="submit">Submit</Button>
