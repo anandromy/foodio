@@ -75,6 +75,8 @@ export const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
         })
 
         formData.append("imageFile", formDataJson.imageFile)
+
+        onSave(formData)
     }
 
     return(
