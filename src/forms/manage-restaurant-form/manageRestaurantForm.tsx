@@ -36,7 +36,7 @@ const formSchema = z.object({
     cuisines: z.array(z.string()).nonempty({
         message: "Please select atleast one item"
     }),
-    menuItem: z.array(z.object({
+    menuItems: z.array(z.object({
         name: z.string().min(1, "Name is required"),
         price: z.coerce.number().min(1, "Price is required")
     })),
@@ -53,12 +53,28 @@ export const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
         // fallback values
         defaultValues: { 
             cuisines: [],
-            menuItem: [{ name: "", price: 0 }],
+            menuItems: [{ name: "", price: 0 }],
         }
     })
 
-    const onSubmit = () => {
+    const onSubmit = (formDataJson: z.infer<typeof formSchema>) => {
 
+        // Converting content-type = "application/json" to multipart FormData object because multipart forms can't be sent with type application/json type.
+        const formData = new FormData()
+        formData.append("restaurantName", formDataJson.restaurantName)
+        formData.append("city", formDataJson.city)
+        formData.append("country", formDataJson.country)
+        formData.append("deliveryPrice", (formDataJson.deliveryPrice * 100).toString())
+        formData.append("estimatedDeliveryTime", formDataJson.estimatedDeliveryTime.toString())
+        formDataJson.cuisines.forEach((cuisine, index) => {
+            formData.append(`cuisines[${index}]`, cuisine)
+        })
+        formDataJson.menuItems.forEach((item, index) => {
+            formData.append(`menuItems[${index}][name]`, item.name)
+            formData.append(`menuItems[${index}][price]`, (item.price * 100).toString())
+        })
+
+        formData.append("imageFile", formDataJson.imageFile)
     }
 
     return(
