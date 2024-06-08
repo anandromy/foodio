@@ -9,8 +9,11 @@ import { MenuSection } from "./menuSection"
 import { ImageSection } from "./imageSection"
 import { Button } from "@/components/ui/button"
 import { LoaderIcon } from "lucide-react"
+import { Restaurant } from "@/types/user"
+import { useEffect } from "react"
 
 type Props = {
+    restaurant?: Restaurant
     onSave: ( restaurantFormData: FormData ) => void
     isLoading: boolean
 }
@@ -45,7 +48,7 @@ const formSchema = z.object({
     })
 })
 
-export const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
+export const ManageRestaurantForm = ({ onSave, isLoading, restaurant }: Props) => {
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -56,6 +59,20 @@ export const ManageRestaurantForm = ({ onSave, isLoading }: Props) => {
             menuItems: [{ name: "", price: 0 }],
         }
     })
+
+    useEffect(() => {
+        if(!restaurant){
+            return;
+        }
+        const deliveryPriceFormatted = parseInt((restaurant.deliveryPrice / 100).toFixed(2))
+        const menuItemsFormatted = restaurant.menuItems.map((item) => ({
+            ...item, 
+            price: parseInt((item.price / 100).toFixed(2))
+        }))
+
+        const updatedRestaurant = {...restaurant, deliveryPrice: deliveryPriceFormatted, menuItems: menuItemsFormatted}
+        form.reset(updatedRestaurant)
+    }, [ form, restaurant ])
 
     const onSubmit = (formDataJson: z.infer<typeof formSchema>) => {
 
