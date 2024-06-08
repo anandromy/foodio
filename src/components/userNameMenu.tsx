@@ -18,6 +18,9 @@ export const UserNameMenu = () => {
             <Link to="/user-profile" className="hover:text-primary">User profile</Link>
           </DropdownMenuItem>
           <DropdownMenuItem>
+            <Link to="/manage-restaurant" className="hover:text-primary">Manage Restaurant</Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem>
             <Button onClick={async() => await logout()} className="w-full">
                 Log Out
             </Button>
