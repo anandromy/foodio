@@ -9,7 +9,7 @@ import { MenuSection } from "./menuSection"
 import { ImageSection } from "./imageSection"
 import { Button } from "@/components/ui/button"
 import { LoaderIcon } from "lucide-react"
-import { Restaurant } from "@/types/user"
+import { Restaurant } from "@/types/type"
 import { useEffect } from "react"
 
 type Props = {
