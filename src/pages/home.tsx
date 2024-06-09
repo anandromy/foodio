@@ -15,7 +15,7 @@ export const Home = () => {
 
     return(
         <div className="flex flex-col gap-12">
-            <div className="bg-background rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-8 md:-mt-16">
+            <div className="md:px-32 bg-background rounded-lg shadow-md py-8 flex flex-col gap-5 text-center -mt-8 md:-mt-16">
                 <h1 className="text-3xl md:text-5xl font-bold text-primary tracking-tight">
                     Tuck into a takeaway today
                 </h1>
