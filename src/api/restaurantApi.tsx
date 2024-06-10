@@ -8,6 +8,7 @@ export const useSearchRestaurant = (searchState: SearchState, city?: string, ) =
     const createSearchRequest = async (): Promise<RestaurantSearchResponse> => {
         const params = new URLSearchParams()
         params.set("searchQuery", searchState.searchQuery)
+        params.set("page", searchState.page.toString())
         const response = await fetch(`${api_base_url}/api/restaurant/search/${city}?${params.toString()}`)
         if (!response.ok){
             throw new Error("Failed to get restaurant")
