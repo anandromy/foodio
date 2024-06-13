@@ -43,7 +43,7 @@ export const SearchBar = ({ onSubmit, placeholder, onReset, searchQuery }: Props
 
     return(
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className={`flex items-center flex-1 gap-3 justify-between flex-row border-2 rounded-full p-3 ${form.formState.errors.searchQuery && "border-destructive"}`}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className={`flex items-center gap-3 justify-between flex-row border-2 rounded-full p-3 ${form.formState.errors.searchQuery && "border-destructive"}`}>
                 <SearchIcon strokeWidth={2.5} size={30} className="text-primary ml-1 hidden md:block" />
                 <FormField control={form.control} name="searchQuery" render={({ field }) => (
                     <FormItem className="flex-1">
