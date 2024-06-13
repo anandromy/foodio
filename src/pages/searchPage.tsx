@@ -4,6 +4,7 @@ import { PaginationSelector } from "@/components/paginationSelector"
 import { SearchBar } from "@/components/searchBar"
 import { SearchResultCard } from "@/components/searchResultCard"
 import { SearchResultsInfo } from "@/components/searchResultsInfo"
+import { SortOptionDropdown } from "@/components/sortOptionDropdown"
 import { LoaderIcon } from "lucide-react"
 import { useState } from "react"
 import { useParams } from "react-router-dom"
@@ -11,7 +12,8 @@ import { useParams } from "react-router-dom"
 export type SearchState = {
     searchQuery: string
     page: number,
-    selectedCuisines: string[]
+    selectedCuisines: string[],
+    sortOption: string
 }
 
 export type SearchForm = {
@@ -23,12 +25,20 @@ export const SearchPage = () => {
     const [searchState, setSearchState] = useState<SearchState>({
         searchQuery: "",
         page: 1,
-        selectedCuisines: []
+        selectedCuisines: [],
+        sortOption: "bestMatch"
     })
     const [isExpanded, setIsExpanded] = useState<boolean>(false)
 
     const { results, isLoading } = useSearchRestaurant(searchState, city)
 
+    const setSortOption = (sortOption: string) => {
+        setSearchState((prevState) => ({
+            ...prevState,
+            sortOption,
+            page: 1
+        }))
+    }
     const setSelectedCuisines = (selectedCuisines: string[]) => {
         setSearchState((prevState) => ({
             ...prevState,
@@ -78,7 +88,10 @@ export const SearchPage = () => {
             </div>
             <div id="main-content" className="flex flex-col gap-5">
                 <SearchBar onSubmit={setSearchQuery} placeholder="Search by cuisines or restaurant name" onReset={resetSearch} searchQuery={searchState.searchQuery} />
-                <SearchResultsInfo city={city} total={results.pagination.total} />
+                <div className="flex justify-between flex-col gap-3 lg:flex-row">
+                    <SearchResultsInfo city={city} total={results.pagination.total} />
+                    <SortOptionDropdown sortOption={searchState.sortOption} onChange={(value) => setSortOption(value)} />
+                </div>
                 {results.data.map((restaurant) => (
                     <SearchResultCard restaurant={restaurant} />
                 ))}

@@ -10,6 +10,7 @@ export const useSearchRestaurant = (searchState: SearchState, city?: string, ) =
         params.set("searchQuery", searchState.searchQuery)
         params.set("page", searchState.page.toString())
         params.set("selectedCuisines", searchState.selectedCuisines.join(","))
+        params.set("sortOption", searchState.sortOption)
         const response = await fetch(`${api_base_url}/api/restaurant/search/${city}?${params.toString()}`)
         if (!response.ok){
             throw new Error("Failed to get restaurant")
